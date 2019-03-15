@@ -5,23 +5,22 @@
 /***
     Variables
 ***/
+const $colorDiv = $('.colorDiv');
 const $colors = $('#color option');
 const $activities = $('.activities');
 const $option = $('.activities label input');
 const $creditCardSection = $('#credit-card');
-           $creditCardSection.hide(); // Hides credit card section on load
 const $paypalSection = $('#paypal');
-           $paypalSection.hide(); // Hides paypal section on load
 const $bitcoinSection = $('#bitcoin');
-           $bitcoinSection.hide(); // Hides bitcoin section on load
-
-
 
 /***
-    Sets focus to first input
+    Calls necessary functions on load
 ***/
 $(document).ready( function () {
-    $('input').first().focus();
+    $('input').first().focus(); //Sets focus to first input
+    $colorDiv.hide(); // Hides color options on load
+    $paypalSection.hide(); // Hides paypal section on load
+    $bitcoinSection.hide(); // Hides bitcoin section on load
 });
 
 
@@ -33,13 +32,10 @@ $(document).ready( function () {
 $('#other-title').hide(); // Hides "Other" input on load
 
 $('#title').change( function () {
-
     if ($(this).val() == 'other')
         $('#other-title').show();
-
     else
         $('#other-title').hide();
-
 }); // End $('#title').change()
 
 // Pushes pun "colors" to puns array
@@ -54,14 +50,20 @@ for (let i = 3; i <= 5; i++) {
     heart.push($colors[i].outerHTML);
 }
 
-
 /***
     ”T-Shirt Info”
     Matches t-shirt "color" to "theme"
 ***/
 $('#design').change( function () {
+    // Shows color options when valid option is selected
+    $colorDiv.show();
+
     // Hides color options
     $('#color').children('option').remove();
+
+    // Hides color options
+    if ($(this).val() == 'select theme')
+        $colorDiv.hide();
 
     // Shows "js puns only" colors
     if ($(this).val() == 'js puns')
@@ -70,9 +72,7 @@ $('#design').change( function () {
     // Shows "heart js only" colors
     if ($(this).val() == 'heart js')
         $('#color').append(heart);
-
 }); // End $('#design').change()
-
 
 /***
     ”Register for Activities”
